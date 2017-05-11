@@ -1,10 +1,5 @@
 *.flv
-*.mp4
 *.avi
 *.swp
 *.pyc
-im2txt/im2txt/data/models
 VideoSR/db.sqlite3
-VideoSR/VideoSR/static/sr_video
-VideoSR/VideoSR/static/videos
-im2txt/data/model
