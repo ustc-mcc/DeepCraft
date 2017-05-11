@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" class="uk-notouch">
+{% load staticfiles %}
+<head>
+	<meta charset="utf-8">
+	<title>DeepCraft</title>
+	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/uikit/2.27.2/css/uikit.min.css">
+	<link rel="stylesheet" type="text/css" href="{% static "css/docs.css" %}">
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/2.27.2/js/uikit.min.js"></script>
+	<!-- Bootstrap core CSS -->
+    <link href="{% static "css/bootstrap.min.css" %}" rel="stylesheet">
+        <link href="{% static "css/sticky-footer-navbar.css" %}" rel="stylesheet">
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+
+    <!-- Custom styles for this template -->
+
+    <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
+    <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
+
+
+</head>
+<body class="tm-background">
+
+	<div class="tm-section tm-section-color-1 tm-section-colored">
+		<div class="uk-container uk-container-center uk-text-center">
+			<h1 class="uk-heading-large">DeepCraft Online Demo</h1>
+		</div>
+	<div class="uk-container uk-container-center uk-text-center" style="text-align:center;">
+    	<p class="uk-text-large">
+        	Please choose an image:
+    	</p>
+    <form enctype="multipart/form-data" method="post" class="uk-form">
+        {% csrf_token %} 
+	<fieldset data-uk-margin>
+        <input id="img_input" type="file" name="tmp_image" value="Choose an image" onchange="readURL(this);">
+        <img  id="tmp_img" height="2" width="2" src="https://raw.githubusercontent.com/vra/ArtNet/master/ArtNet/static/images/stary_night.jpg" alt="Choose your image first!" /></br>
+        <input type="submit" name="submit" id = "submit" value="Run Caption" disabled="disabled" class="uk-button uk-button-center uk-button-large uk-button-success tm-button-download">
+       </fieldset>         
+	{% if sentences %} 
+                <img src= "{% static "imgs/hackxsjtu/tmp.jpg"%}" height="500px" width="500px">
+                <p class="uk-text-large">
+                    The image caption result:<br>
+                {% for sentence in sentences %}
+                        <strong>{{ sentence}}</strong>
+                {% endfor %}
+                </p>
+	</form>
+		<button id="pron"  onclick="showAudio();" class="uk-button uk-button-center uk-button-large uk-button-success tm-button-download">pronunciate</button> 
+		<audio id="voice" style="display:inline;" src="{% static "audios/result.wav" %}" ></audio>
+			<br><br><br>
+		<a class="uk-button uk-button-center uk-button-large uk-button-success tm-button-download" href="/record">rate</a>
+            {% endif %}
+
+  </div>
+        
+                     
+	<div class="uk-container uk-container-center uk-text-center uk-margin-top-remove">
+			
+	</div>	
+		<div class="uk-container uk-container-center uk-text-center">
+			<div class="uk-margin">
+				<br>
+				<br>
+				<br>
+				<br>
+				<a href="/" class="uk-button uk-button-center uk-button-large uk-button-success tm-button-download"> Return Home</a>
+			</div>
+		</div>	
+	</div>
+	<div class="tm-section tm-section-color-1 tm-section-colored uk-margin-top-remove"></div>
+	<div class="tm-section tm-section-color-1 tm-section-colored"></div>
+	<div class="tm-section tm-section-color-1 tm-section-colored"></div>
+
+	<script type="text/javascript">
+		function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $('#origin_img')
+                    .attr('src', e.target.result)
+            };
+
+            reader.readAsDataURL(input.files[0]);
+			document.getElementById('submit').disabled = false;
+
+			
+        }
+    }
+	</script>
+   <script type="text/javascript">
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                var submit = document.getElementById("submit");
+                submit.removeAttribute('disabled');
+			  	/*submit.value=  "Actually can't  run because of lack of GPU and model";*/
+
+                var paras = document.getElementsByClassName('result');
+
+                while(paras[0]) {
+                    paras[0].parentNode.removeChild(paras[0]);
+                  } 
+                            
+                img = document.getElementById('tmp_img');
+                img.src= e.target.result;
+                img.width = 500;
+                img.height = 500;
+            };
+
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+    function showImage(){
+        var img = document.getElementById("img_input");
+        readURL(img);
+    }
+	function showAudio() {
+        	var audio = document.getElementById("voice");
+		audio.controls=true;
+		audio.autoplay=true;
+	}
+
+	// success callback when requesting audio input stream
+function gotStream(stream) {
+    window.AudioContext = window.AudioContext || window.webkitAudioContext;
+    var audioContext = new AudioContext();
+
+    // Create an AudioNode from the stream.
+    var mediaStreamSource = audioContext.createMediaStreamSource( stream );
+
+    // Connect it to the destination to hear yourself (or any other node for processing!)
+    mediaStreamSource.connect( audioContext.destination );
+}
+
+navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia;
+navigator.getUserMedia( {audio:true}, gotStream );
+  </script>
+	
+
+
+</body>
+</html>

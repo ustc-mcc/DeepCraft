@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+
+
+{%  block title %}
+index
+{% endblock %}
+
+{%  block head %}
+{% load static %}
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script src="{% static "jpeg_camera/swfobject.min.js" %}" type="text/javascript"></script>
+<script src="{% static "jpeg_camera/canvas-to-blob.min.js" %}" type="text/javascript"></script>
+<script src="{% static "jpeg_camera/jpeg_camera.min.js" %}" type="text/javascript"></script>
+<script src="{% static "jpeg_camera/jpeg_camera_with_dependencies.min.js" %}" type="text/javascript"></script>
+<script src="{% static "js/demo.js" %}" type="text/javascript"></script>
+ <link rel="stylesheet" type="text/css" href="{% static "css/demo.css" %}"> 
+{% endblock %}
+
+{%  block content %}
+   <div id="camera">
+      <div class="placeholder">
+        Your browser does not support camera access.<br>
+        We recommend
+        <a href="https://www.google.com/chrome/" target="_blank">Chrome</a>
+        &mdash; modern, secure, fast browser from Google.<br>
+        It's free.
+      </div>
+    </div><br>
+ <button id="take_snapshots" onclick="myUpload();">Take more snapshots</button>
+    <button id="show_stream">Show stream</button><br>
+
+    <div id="snapshots"></div>
+
+    <button id="discard_snapshot" onclick="myUpload();">Discard snapshot</button>
+    <button id="upload_snapshot">Upload to URL</button><br>
+    <button id="my_upload" onclick="myUpload();">My Upload</button><br>
+
+    <input type="text" id="api_url" placeholder="https://example.com/upload"><br>
+
+    <img src="loader.gif" id="loader">
+    <div id="upload_status"></div>
+    <div id="upload_result"></div>
+<script>
+var camera = new JpegCamera("#camera");
+var snapshot = camera.capture();
+
+snapshot.show(); // Display the snapshot
+
+snapshot.upload({api_url: "/upload_img/"}).done(function(response) {
+  alert("ok, response:"+ response);
+  response_container.innerHTML = response;
+  alert('second:'+response);
+  this.discard(); // discard snapshot and show video stream again
+}).fail(function(status_code, error_message, response) {
+  alert("Upload failed with status " + status_code);
+});
+function myUpload() {
+//var camera = new JpegCamera("#camera");
+//var snapshot = camera.capture();
+
+//snapshot.show(); // Display the snapshot
+//var img = snapshot.get_image_data(
+
+snapshot.upload({api_url: "/upload_img/"}).done(function(response) {
+  alert("ok");
+  response_container.innerHTML = response;
+  alert(response);
+  this.discard(); // discard snapshot and show video stream again
+}).fail(function(status_code, error_message, response) {
+  alert("Upload failed with status " + status_code);
+});
+
+};
+
+</script>
+{% endblock %}

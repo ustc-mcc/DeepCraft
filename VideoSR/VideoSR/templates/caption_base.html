@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+    
+{% block title %}
+    Demo
+{% endblock %}
+
+{% block main %}
+
+   <div class="container jumbotron">
+	<p style="color:red">
+	NOTE: Since the model is quite large, it may take about 30s to run all process. Please sit down and wait...
+	</p>
+    <p>
+        Please choose an image:
+    </p>
+    <form enctype="multipart/form-data" method="post">
+        {% csrf_token %} 
+        <input id="img_input" type="file" name="tmp_image" value="Choose an image" onchange="readURL(this);"></br>
+        <img  id="tmp_img" src="#" alt="Choose your image first!" /></br>
+        <input type="submit" name="submit" id = "submit" value="Run Caption" disabled="disabled">
+        {% block result %}
+           no result yet.
+        {% endblock %}
+        
+              </form>
+  </div>
+   <script type="text/javascript">
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                var submit = document.getElementById("submit");
+                submit.removeAttribute('disabled');
+			  	/*submit.value=  "Actually can't  run because of lack of GPU and model";*/
+
+                var paras = document.getElementsByClassName('result');
+
+                while(paras[0]) {
+                    paras[0].parentNode.removeChild(paras[0]);
+                  } 
+                            
+                img = document.getElementById('tmp_img');
+                img.src= e.target.result;
+                img.width = 300;
+                img.height = 300;
+            };
+
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+    function showImage(){
+        var img = document.getElementById("img_input");
+        readURL(img);
+    }
+  </script>
+{% endblock %}

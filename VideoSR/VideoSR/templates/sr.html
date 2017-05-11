@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" class="uk-notouch">
+{% load staticfiles %}
+<head>
+	<meta charset="utf-8">
+	<title>DeepCraft</title>
+	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/uikit/2.27.2/css/uikit.min.css">
+	<link rel="stylesheet" type="text/css" href="{% static "css/docs.css" %}">
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/2.27.2/js/uikit.min.js"></script>
+
+</head>
+<body class="tm-background">
+	<div class="tm-section tm-section-color-1 tm-section-colored">
+		<div class="uk-container uk-container-center uk-text-center">
+			<h1 class="uk-heading-large">DeepCraft Online Demo</h1>
+		</div>
+		
+		<div class="uk-container uk-container-center uk-text-center">
+		<div data-uk-slider>
+    		<div class="uk-slider-container">
+        		<ul class="uk-slider uk-grid-width-medium-1-4">
+            		<li style="display:inline;"><a href="/play/1"><img style="display:inline-block;" src="{% static "imgs/vs/1-low.jpg"%}"><img style="display:inline;"  src="{%static "imgs/vs/1-high.jpg"%}"></a></li> <br><br> <li style="display:inline;"><a href="/play/2"><img  style="display:inline;" src="{% static "imgs/vs/2-low.jpg"%}"><img style="display:inline;" src="{%static "imgs/vs/2-high.jpg"%}"></a></li> </ul>
+    		</div>
+		</div>
+		</div>
+
+		<div class="uk-container uk-container-center uk-text-center uk-margin-top-remove">
+			
+		</div>	
+		<div class="uk-container uk-container-center uk-text-center">
+			<div class="uk-margin">
+				<br>
+				<br>
+				<br>
+				<br>
+				<a href="/" class="uk-button uk-button-center uk-button-large uk-button-success tm-button-download"> Return Home</a>
+			</div>
+		</div>	
+	</div>
+	<div class="tm-section tm-section-color-1 tm-section-colored uk-margin-top-remove"></div>
+	<div class="tm-section tm-section-color-1 tm-section-colored"></div>
+	<div class="tm-section tm-section-color-1 tm-section-colored"></div>
+
+	<script type="text/javascript">
+		function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $('#origin_img')
+                    .attr('src', e.target.result)
+            };
+
+            reader.readAsDataURL(input.files[0]);
+			document.getElementById('btn_go').disabled = false;
+
+			
+        }
+    }
+	</script>
+</body>
+</html>

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" class="uk-notouch">
+{% load staticfiles %}
+<head>
+	<meta charset="utf-8">
+	<title>DeepCraft</title>
+	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/uikit/2.27.2/css/uikit.min.css">
+	<link rel="stylesheet" type="text/css" href="{% static "css/docs.css" %}">
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/2.27.2/js/uikit.min.js"></script>
+	<link href="http://vjs.zencdn.net/5.19.2/video-js.css" rel="stylesheet">                                                                              
+  	<!-- If you'd like to support IE8 -->                                                                                                               
+  	<script src="http://vjs.zencdn.net/ie8/1.1.2/videojs-ie8.min.js"></script>   
+
+</head>
+<body class="tm-background">
+	<div class="tm-section tm-section-color-1 tm-section-colored">
+		<div class="uk-container uk-container-center uk-text-center">
+			<h1 class="uk-heading-large">DeepCraft Online Demo</h1>
+		</div>
+		<div class="uk-container uk-container-center" style="align:center, width:80%;">
+		<video id="my-video" class="video-js" controls preload="auto" width="1100" height="600" data-setup="{}">
+			<source style="align:center" src="{% static "sr_video/"%}{{page}}_high.mp4" type='video/mp4'>
+		</video>     
+
+		<br>
+		<video id="my-video" class="video-js" controls preload="auto" width="1100" height="600" data-setup="{}">                                                <source src="{% static "sr_video/"%}{{page}}_low.mp4" type='video/mp4'>  <br>                                                                         </video>     
+	  </div>
+	<div class="uk-container uk-container-center uk-text-center uk-margin-top-remove">
+			
+	<div class="uk-container uk-container-center uk-text-center uk-margin-top-remove">
+			
+		</div>	
+		<div class="uk-container uk-container-center uk-text-center">
+			<div class="uk-margin">
+				<br>
+				<br>
+				<br>
+				<br>
+				<a href="/" class="uk-button uk-button-center uk-button-large uk-button-success tm-button-download"> Return Home</a>
+			</div>
+		</div>	
+	</div>
+	<div class="tm-section tm-section-color-1 tm-section-colored uk-margin-top-remove"></div>
+	<div class="tm-section tm-section-color-1 tm-section-colored"></div>
+	<div class="tm-section tm-section-color-1 tm-section-colored"></div>
+
+	<script type="text/javascript">
+		function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $('#origin_img')
+                    .attr('src', e.target.result)
+            };
+
+            reader.readAsDataURL(input.files[0]);
+			document.getElementById('btn_go').disabled = false;
+
+			
+        }
+    }
+	</script>
+</body>
+</html>

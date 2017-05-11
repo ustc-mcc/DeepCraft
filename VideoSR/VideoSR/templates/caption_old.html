@@ -1,0 +1,28 @@
+{% extends 'caption_base.html'%}
+
+{% block result %}
+    {% load staticfiles %}
+        
+           {% if sentences %} 
+                <img class="result" src= "{% static "imgs/hackxsjtu/tmp.jpg"%}" style="height:300px, width:300px;">
+                <p class="result">
+                    The image caption result:
+                </p>
+                {% for sentence in sentences %}
+                    <p class="result">
+                        {{ sentence}}
+                    </p>
+                {% endfor %}
+		<form method="post">
+			{% csrf_token %}
+		<button id="pron"><a href="/pron">pronunciate</a></button>
+		<button id="rate"><a href="/rate">rate</a></button>
+		</form>
+
+            {% endif %}
+          
+
+{% endblock %}
+<div>
+<audio style="display:inline;" src="{% static "audios/test.wav" %}"></audio>
+</div>

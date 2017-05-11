@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+
+{%  block title %}
+index
+{% endblock %}
+
+{%  block head %}
+{% load static %}
+{% endblock %}
+
+
+{%  block content %}
+	
+{% endblock %}
